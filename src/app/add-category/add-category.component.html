@@ -1,0 +1,26 @@
+<!-- <div class="col-md-8 offset-md-3">
+    <h3>Add Category</h3>
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="category.name" name="name">
+        </div>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</div> -->
+<div mat-dialog-title>
+    <h1>Category Form</h1>
+</div>
+<div mat-dialog-content>
+    <div>
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="category.name" name="name">
+      </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions class="action">
+    <button mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-butomn color="primary" (click)="onSubmit()">Save</button>
+</div>
