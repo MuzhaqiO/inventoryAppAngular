@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Category } from '../category/category';
 import { CategoryService } from '../category/category.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 
 @Component({
@@ -22,12 +22,29 @@ export class AddCategoryComponent {
     id: 0,
     name: ''
   }
-    constructor(private categoryService: CategoryService, private router: Router, private dialogRef: MatDialogRef<AddCategoryComponent>){}
+    constructor(private categoryService: CategoryService, private router: Router, private dialogRef: MatDialogRef<AddCategoryComponent>, @Inject(MAT_DIALOG_DATA) public data: any){}
 
     ngOnInit(): void {
+      if(this.data){
+        this.category = this.data
+      }
     }
 
     saveCategory(){
+      if(this.data){
+        this.categoryService.updateCateory(this.data.id, this.category).subscribe(
+          {
+            next: (res: Category) => {
+              alert('Category updated');
+              console.log(res);
+              this.dialogRef.close(true);
+            },
+            error: (err: HttpErrorResponse) => {
+              console.log(err);
+            }
+          }
+        );
+      } else {
       this.categoryService.createCategory(this.category).subscribe(
         {
           next: (res: Category) => {
@@ -39,7 +56,8 @@ export class AddCategoryComponent {
             console.log(err);
           }
         }
-      )
+      );
+    }
     }
 
     onSubmit(){

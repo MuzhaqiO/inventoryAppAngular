@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { Category } from './category';
 import { CategoryService } from './category.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
-import { AddCategoryComponent } from '../add-category/add-category.component';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { NavbarComponent } from '../../navbar/navbar.component';
+import { AddCategoryComponent } from '../add-category/add-category.component';
 
 
 @Component({
@@ -36,6 +36,12 @@ export class CategoryComponent {
     })
   }
 
+  openEditCategoryDialog(data: any){
+      this._dialog.open(AddCategoryComponent, {
+        data
+      });
+  }
+// 39-43
   ngOnInit(): void {
     this.getCategoryList();
   }
@@ -53,5 +59,14 @@ export class CategoryComponent {
     );
   }
 
+  deleteCategory(id: number) {
+    this.categoryService.deleteCategory(id).subscribe({
+      next: (res) => {
+        alert('Category deleted');
+        this.getCategoryList();
+      },
+      error: console.log
+    });
+  }
 
 }
