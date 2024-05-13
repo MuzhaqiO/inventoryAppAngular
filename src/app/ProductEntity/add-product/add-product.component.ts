@@ -30,7 +30,7 @@ export class AddProductComponent {
   selectedCategories: Category[] = [];
   categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService, private productService: ProductService, private router: Router, private dialogRef: MatDialogRef<AddProductComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(private categoryService: CategoryService, private productService: ProductService, private dialogRef: MatDialogRef<AddProductComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
     if(this.data){

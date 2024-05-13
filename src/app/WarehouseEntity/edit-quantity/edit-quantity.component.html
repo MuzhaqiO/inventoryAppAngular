@@ -1,0 +1,21 @@
+<div mat-dialog-title>
+    <h1>Warehouse Form</h1>
+</div>
+<div mat-dialog-content>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="warehouse.name" name="name">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input matInput [(ngModel)]="warehouse.quantity" name="quantity">
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions class="action">
+    <button mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Update</button>
+</div>
