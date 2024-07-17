@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+    <!-- Bill Details -->
+    <div>
+        <h2>Bill Details</h2>
+        <p><strong>ID:</strong> {{ dataSource.id }}</p>
+        <p><strong>Date:</strong> {{ dataSource.date }}</p>
+        <p><strong>Type:</strong> {{ dataSource.type }}</p>
+        <button mat-raised-button color="primary" >Add Transaction</button>
+    </div>
+
+    <!-- Transactions Table -->
+    <table mat-table [dataSource]="dataSource.transactions" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let transaction"> {{ transaction.id }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="productId">
+            <th mat-header-cell *matHeaderCellDef> Product ID </th>
+            <td mat-cell *matCellDef="let transaction"> {{ transaction.productId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+            <td mat-cell *matCellDef="let transaction"> {{ transaction.quantity }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="finalValue">
+            <th mat-header-cell *matHeaderCellDef> Final Value </th>
+            <td mat-cell *matCellDef="let transaction"> {{ transaction.finalValue }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let transaction; columns: displayedColumns;"></tr>
+    </table>
+    
+    <!-- Total Value -->
+    <div>
+        <p><strong>Total Value:</strong> {{ dataSource.totalValue }}</p>
+    </div>
+</div>

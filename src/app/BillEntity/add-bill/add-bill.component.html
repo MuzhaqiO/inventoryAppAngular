@@ -1,0 +1,18 @@
+<div mat-dialog-title>
+    <h1>Bill Form</h1>
+</div>
+<div mat-dialog-content>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="bill.type" name="type">
+                <mat-option value="BUY">BUY</mat-option>
+                <mat-option value="SELL">SELL</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    
+<div mat-dialog-actions class="action">
+    <button mat-raised-button type="button" (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+</div>
