@@ -22,6 +22,7 @@ export class FullBillComponent {
     id: 0,
     date: new Date(),
     type: Type.BUY,
+    category: {id:0, name: ''},
     transactions: [],
     totalValue: 0
   };

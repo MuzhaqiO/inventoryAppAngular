@@ -8,7 +8,7 @@ import { Bill } from './bill';
 })
 export class BillService {
 
-  private baseURL = 'http://localhost:8080/inventoryApp/bill';
+  private baseURL = 'http://localhost:9999/inventoryApp/bill';
 
   constructor(private http:HttpClient) { }
 

@@ -8,7 +8,7 @@ import { Category } from './category';
 })
 export class CategoryService {
 
-  private baseURL = 'http://localhost:8080/inventoryApp/category';
+  private baseURL = 'http://localhost:9999/inventoryApp/category';
 
   constructor(private http:HttpClient) { }
 

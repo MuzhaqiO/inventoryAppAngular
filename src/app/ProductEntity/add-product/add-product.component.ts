@@ -24,31 +24,19 @@ export class AddProductComponent {
   product: Product = {
     id: 0,
     name: '',
-    price: 0,
-    categories: []
+    price: 0
   };
-  selectedCategories: Category[] = [];
-  categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService, private productService: ProductService, private dialogRef: MatDialogRef<AddProductComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  constructor(private productService: ProductService, private dialogRef: MatDialogRef<AddProductComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit() {
     if(this.data){
       this.product = this.data
     }
-
-    this.categoryService.getCategories().subscribe(
-      (categories: Category[]) => {
-        this.categories = categories;
-      },
-      (error: HttpErrorResponse) => {
-        console.error(error);
-      }
-    );
   }
 
   saveProduct() {
-    this.product.categories = this.selectedCategories;
     if(this.data){
     this.productService.updateProduct(this.data.id, this.product).subscribe(
       {

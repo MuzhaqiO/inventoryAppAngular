@@ -11,6 +11,17 @@
             </mat-select>
         </mat-form-field>
     </div>
+    <div mat-dialog-content>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select [(ngModel)]="selectedCategory" name="category" required>
+                    <mat-option *ngFor="let category of categories" [value]="category">
+                      {{category.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
     
 <div mat-dialog-actions class="action">
     <button mat-raised-button type="button" (click)="closeDialog()">Cancel</button>

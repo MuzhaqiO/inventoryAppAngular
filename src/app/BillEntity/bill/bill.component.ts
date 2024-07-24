@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 export class BillComponent {
 
   dataSource: Bill[] = [];
-  displayedColumns: string[] = ['id', 'date', 'type', 'totalValue'];
+  displayedColumns: string[] = ['id', 'date', 'type', 'category', 'totalValue'];
 
   constructor(private billService: BillService, private _dialog: MatDialog, private router: Router){}
 

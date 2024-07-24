@@ -9,6 +9,8 @@ import { BillService } from '../bill/bill.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
+import { CategoryService } from '../../CategoryEntity/category/category.service';
+import { Category } from '../../CategoryEntity/category/category';
 
 @Component({
   selector: 'app-add-bill',
@@ -24,13 +26,34 @@ export class AddBillComponent {
     date: new Date(),
     type: Type.BUY,
     transactions: [],
+    category: {id:0, name:''},
     totalValue: 0
   }
+  selectedCategory!: Category;
+  categories: Category[] = [];
 
-  constructor(private billService: BillService, private dialogRef: MatDialogRef<AddBillComponent>, @Inject(MAT_DIALOG_DATA) public data: any){}
+  constructor(private billService: BillService, private categoryService: CategoryService, private dialogRef: MatDialogRef<AddBillComponent>, @Inject(MAT_DIALOG_DATA) public data: any){}
 
+  ngOnInit() {
+    if(this.data) {
+      this.bill = this.data;
+    }
+
+    this.categoryService.getCategories().subscribe(
+      (categories: Category[]) => {
+        this.categories = categories;
+      },
+      (error: HttpErrorResponse) => {
+        console.error(error);
+      }
+      );
+  }
   saveBill(){
-    this.billService.createBill(this.bill).subscribe(
+    const billWithCategoryId = {
+      ...this.bill,
+      categoryId: this.selectedCategory.id
+    };
+    this.billService.createBill(billWithCategoryId).subscribe(
       {
         next: (res: Bill) => {
           alert('Bill was added');

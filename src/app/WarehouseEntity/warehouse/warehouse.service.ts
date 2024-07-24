@@ -14,7 +14,7 @@ export class WarehouseService {
     })
   };
 
-  private baseURL = 'http://localhost:8080/inventoryApp/warehouse';
+  private baseURL = 'http://localhost:9999/inventoryApp/warehouse';
 
   constructor(private http:HttpClient) { }
 

@@ -20,7 +20,7 @@ import { AddProductComponent } from '../add-product/add-product.component';
 })
 export class ProductComponent {
   dataSource: Product[] = [];
-  displayedColumns: string[] = ['id', 'name', 'price', 'categories', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'price', 'actions'];
 
   constructor(private productService: ProductService, private _dialog: MatDialog){}
 
