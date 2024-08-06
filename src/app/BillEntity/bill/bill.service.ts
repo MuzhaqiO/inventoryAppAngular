@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Bill } from './bill';
@@ -16,8 +16,8 @@ export class BillService {
     return this.http.get<Bill[]>(`${this.baseURL}/getAll`);
   }
 
-  createBill(bill: Bill): Observable<Bill>{
-    return this.http.post<Bill>(`${this.baseURL}/createBill`, bill)
+  createBill(bill: Bill, params: HttpParams): Observable<Bill>{
+    return this.http.post<Bill>(`${this.baseURL}/createBill`, bill, {params});
   }
 
   getBillById(billId: number): Observable<Bill>{

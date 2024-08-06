@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,15 +7,19 @@ import { Bill } from '../bill/bill';
 import { Type } from '../bill/type';
 import { BillService } from '../bill/bill.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../../CategoryEntity/category/category.service';
 import { Category } from '../../CategoryEntity/category/category';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 @Component({
   selector: 'app-add-bill',
   standalone: true,
-  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, MatInputModule, CommonModule],
+  imports: [MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule, MatInputModule, CommonModule, MatNativeDateModule, MatDatepickerModule],
+  providers: [DatePipe],
   templateUrl: './add-bill.component.html',
   styleUrl: './add-bill.component.css'
 })
@@ -32,7 +36,7 @@ export class AddBillComponent {
   selectedCategory!: Category;
   categories: Category[] = [];
 
-  constructor(private billService: BillService, private categoryService: CategoryService, private dialogRef: MatDialogRef<AddBillComponent>, @Inject(MAT_DIALOG_DATA) public data: any){}
+  constructor(private billService: BillService, private categoryService: CategoryService, private dialogRef: MatDialogRef<AddBillComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private datePipe: DatePipe){}
 
   ngOnInit() {
     if(this.data) {
@@ -53,7 +57,10 @@ export class AddBillComponent {
       ...this.bill,
       categoryId: this.selectedCategory.id
     };
-    this.billService.createBill(billWithCategoryId).subscribe(
+    const formattedDate = this.datePipe.transform(this.bill.date, 'dd-MM-yyyy')!;
+    const params = new HttpParams().set('date', formattedDate);
+
+    this.billService.createBill(billWithCategoryId, params).subscribe(
       {
         next: (res: Bill) => {
           alert('Bill was added');
